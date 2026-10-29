@@ -1,0 +1,24 @@
+name: Lendo arquivos compartilhado entre steps
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Confere versao do ubuntu
+        run: cat /etc/os-release
+      
+      - name: Exibir Mensagem
+        run: echo "Parapapa aqui" > message.txt
+      
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Acessa arquivo mensagem
+        run: ls -lha
+      
+      - name: Acessa arquivo mensagem
+        run: cat message.txt
