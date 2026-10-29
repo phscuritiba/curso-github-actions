@@ -1,0 +1,21 @@
+name: My First Workflow
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  jobph:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Confere versao do ubuntu
+        run: cat /etc/os-release
+      
+      - name: Exibir Mensagem
+        run: echo "Parapapa aqui" > message.txt
+      
+      - name: Nao sei que la que tem
+        run: ls -lha
+
+      - name: Le arquivo
+        run: cat message.txt
