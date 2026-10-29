@@ -14,11 +14,30 @@ jobs:
       - name: Exibir Mensagem
         run: echo "Parapapa aqui" > message.txt
       
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pasta
+          path: /home/ubuntu/message.txt
+
   job2:
     runs-on: ubuntu-latest
     steps:
-      - name: Acessa arquivo mensagem
+      - name: Ver conteudo do diretorio
         run: ls -lha
       
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pasta
+          path: message.txt
+      
+      - name: Ver conteudo do diretorio
+        run: ls -lha && ls ./pasta/
+
+      - name: Acessa arquivo mensagem
+        run: mv pasta/message.txt . && rm -rf ./pasta
+      
+      - name: Ver conteudo do diretorio
+        run: ls -lha
+
       - name: Acessa arquivo mensagem
         run: cat message.txt
