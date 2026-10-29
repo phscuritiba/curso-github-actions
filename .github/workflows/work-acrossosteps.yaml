@@ -1,11 +1,11 @@
-name: My First Workflow
+name: Lendo arquivos compartilhado entre steps
 on:
   push:
     branches:
       - main
 
 jobs:
-  jobph:
+  entresteps:
     runs-on: ubuntu-latest
     steps: 
       - name: Confere versao do ubuntu
