@@ -1,12 +1,12 @@
-name: Valida Imagens Container
+name: Validacao de Imagens de Container
 
 on:
   workflow_dispatch:
     inputs:
       validaImagemDocker:
-        desciption: 'Validação da imagem escolhida pelo usuário'
+        description: 'Validação da imagem escolhida pelo usuário'
         required: false
-        default: 'nginx.latest'
+        default: 'nginx:latest'
         type: string
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -23,17 +23,17 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Baixa imagem do Container
+
+      - name: Baixa a imagem do container
         run: |
           docker pull ${{ github.event.inputs.validaImagemDocker }}
 
       - name: Leitura da imagem
         run: |
-          IMAGE_NAME="$(echo {{ github.event.inputs.validaImagemDocker }}" | cut -d ':' -f 1)
+          IMAGE_NAME=$(echo "${{ github.event.inputs.validaImagemDocker }}" | cut -d ':' -f 1)
           docker images | grep $IMAGE_NAME
-      
-      - name: Scan com Docker Scout
+
+      - name: Scan com o Docker Scout
         uses: docker/scout-action@v1
         with:
           command: quickview,cves,recommendations,sbom
